@@ -42,6 +42,15 @@ x, y, z, cc = show_mask(grid_with_seamount)
 plt = contourf(y, z, interior(cc)[1,:,:]', xlabel = "y", ylabel = "z", title = "Masked Region")
 savefig(plt,"mask.png")
 
+
+Y, Z = meshgrid(y, z)
+Psi    = (1 .- Z./(h0*exp.(-Y.^2/L^2) .- 1)).^2
+
+psiplot = contourf(y, z, Psi; xlabel = "y", ylabel = "z", title = "Psi")
+savefig(psiplot,"psi.png")
+
+
+
 Y, Z = meshgrid(y, z)
 V    = -2*(1 .- Z./(-2 .+ h0*exp.(-Y.^2/L^2)))./(-2 .+ h0*exp.(-Y.^2/L^2))
 
