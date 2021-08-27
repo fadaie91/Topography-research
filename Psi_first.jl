@@ -2,7 +2,7 @@ ENV["GKSwstype"] = "nul"
 using Printf
 using Oceananigans
 using Oceananigans.ImmersedBoundaries: ImmersedBoundaryGrid, GridFittedBoundary
-
+using Oceananigans.BoundaryConditions: fill_halo_regions!
 using Plots
 
 using Oceananigans.ImmersedBoundaries: mask_immersed_field!
@@ -49,6 +49,8 @@ Psi = Field(Center, Face, Face, CPU(), grid_with_seamount)
 Y, Z = meshgrid(y, z)
 Psi    = (1 .- Z./(h0*exp.(-Y.^2/L^2) .- 1)).^2
 
+
+
 xp, yp, zp = nodes((Center, Face, Face),   grid)
 
 psiplot = contourf(yp, zp, Psi; xlabel = "y", ylabel = "z", title = "Psi")
@@ -56,19 +58,3 @@ savefig(psiplot,"psi.png")
 
 
 
-Y, Z = meshgrid(y, z)
-V    = -2*(1 .- Z./(-2 .+ h0*exp.(-Y.^2/L^2)))./(-2 .+ h0*exp.(-Y.^2/L^2))
-
-
-
-vplot = contourf(y, z, V; xlabel = "y", ylabel = "z", title = "V")
-savefig(vplot,"v.png")
-
-
-
-Y, Z = meshgrid(y, z)
-W    = 4*h0.*Z.*Y.*exp.(-Y.^2/L^2).*(1 .- Z./(-2 .+ h0*exp.(-Y.^2/L^2)))./((L^2)*(-2 .+ h0*exp.(-Y.^2/L^2)).^2)
-#W(x, y, z) =  4*(1-z/(-2+h0*exp(-y^2/L^2)))/(-2+h0*exp(-y^2/L^2))^2*y*z*h0/L^2*exp(-y^2/L^2)
-
-wplot = contourf(y, z, W; xlabel = "y", ylabel = "z", title = "W")
-savefig(wplot,"w.png")
