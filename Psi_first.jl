@@ -42,10 +42,16 @@ x, y, z, cc = show_mask(grid_with_seamount)
 plt = contourf(y, z, interior(cc)[1,:,:]', xlabel = "y", ylabel = "z", title = "Masked Region")
 savefig(plt,"mask.png")
 
+Psi = Field(Center, Face, Face, CPU(), grid_with_seamount)
+
+
+
 Y, Z = meshgrid(y, z)
 Psi    = (1 .- Z./(h0*exp.(-Y.^2/L^2) .- 1)).^2
 
-psiplot = contourf(y, z, Psi; xlabel = "y", ylabel = "z", title = "Psi")
+xp, yp, zp = nodes((Center, Face, Face),   grid)
+
+psiplot = contourf(yp, zp, Psi; xlabel = "y", ylabel = "z", title = "Psi")
 savefig(psiplot,"psi.png")
 
 
