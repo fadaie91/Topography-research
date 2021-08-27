@@ -53,9 +53,9 @@ Psi    = (1 .- Z./(h0*exp.(-Y.^2/L^2) .- 1)).^2
 
 xp, yp, zp = nodes((Center, Face, Face),   grid)
 
-#mask_immersed_field!(Psi)
 
-psiplot = contourf(yp, zp, interior(Psi)[1,:,:]'; xlabel = "y", ylabel = "z", title = "Psi")
+
+psiplot = contourf(yp, zp, Psi; xlabel = "y", ylabel = "z", title = "Psi")
 savefig(psiplot,"psi.png")
 
 
