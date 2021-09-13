@@ -55,34 +55,25 @@ savefig(plt,"mask.png")
 
 Ψ = Field(Center, Face, Face, CPU(), grid_with_seamount)
 V = YFaceField(CPU(), grid_with_seamount)
-#W = ZFaceField(CPU(), grid_with_seamount)
 W = Field(Center, Face, Center, CPU(), grid_with_seamount)
+
 fill_halo_regions!(Ψ, CPU())
 fill_halo_regions!(V, CPU())
 fill_halo_regions!(W, CPU())
+            
 h(y)    = h0*exp(-y^2/L^2)
 ζ(y, z) = z/(h(y) - 1)
 set!(Ψ, (x, y, z) -> (1 - ζ(y, z))^2)
-#fill_halo_regions!(Ψ, CPU())
-
-#(Ψ)[1,:,:]'
-#interior(Ψ)[1,:,:]'
 
 
 set!(V, (x, y, z) -> -2*(1 - z/(-2 + h0*exp(-y^2/L^2)))/(-2 + h0*exp(-y^2/L^2)))
 
 set!(W, (x, y, z) -> 4*h0*z*y*exp(-y^2/L^2)*(1 - z/(-2 + h0*exp(-y^2/L^2)))/((L^2)*(-2 + h0*exp(-y^2/L^2))^2))
 
-#set!(W, (x, y, z) -> 4*h0*z*y*exp(-y^2/L^2))
-
-#fill_halo_regions!(V, CPU())
-#fill_halo_regions!(W, CPU())
 
 xp, yp, zp = nodes((Center, Face, Face),   grid)
 xv, yv, zv = nodes((Face, Center, Center), grid)
-#xv, yv, zv = nodes((Center, Face, Face), grid)
 xw, yw, zw = nodes((Center, Face, Center), grid)
-#xw, yw, zw = nodes((Center, Face, Face), grid)
 
 
 mask_immersed_field!(Ψ)
@@ -96,11 +87,9 @@ savefig(psiplot, "psinumerical.png")
 plt_v = quiver(yv, zv, interior(V)[1,:,:]', title="V_numerical")
 savefig(plt_v, "quivervnumeical.png")
 
-plt_w = quiver(yw, zw, interior(W)[1,:,:]', title="w_numerical")
+plt_w = quiver(yw, zw, interior(W)[1,:,:]', title="W_numerical")
 savefig(plt_w, "quiverwnumeical.png")
 
 
-(W)[1,:,:]'
-interior(W)[1,:,:]'
 
 
