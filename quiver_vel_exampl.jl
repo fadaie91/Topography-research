@@ -100,3 +100,8 @@ plt_vel=quiver(yt, zt, quiver=(V, W))
 savefig(plt_vel, "quivervelnumeical.png")
 
 
+plt_v=quiver(yt, zt, quiver=V)
+savefig(plt_v, "plt_v.png")
+
+plt_w=quiver(yt, zt, quiver=W)
+savefig(plt_w, "plt_w.png")
