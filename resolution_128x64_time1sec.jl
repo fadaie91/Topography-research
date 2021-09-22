@@ -82,11 +82,11 @@ contour!(plt, yp, zp, interior(Ψ)[1,:,:]', title="Ψ", xlabel="y", ylabel="z",
 savefig(plt, "Psi.png")
 
 plt = heatmap(y, z, interior(mask)[1,:,:]', xlabel = "y", ylabel = "z", title = "Masked Region", color = :jet)
-contour!(plt, yv, zv, interior(V)[1,:,:]', title="V", xlabel="y", ylabel="z", color=:black, linewidth=1.5)
+contour!(plt, yv, zv, interior(V)[1,:,:]', title="V_deravative", xlabel="y", ylabel="z", color=:black, linewidth=1.5)
 savefig(plt, "V_deravative.png")
 
 plt = heatmap(y, z, interior(mask)[1,:,:]', xlabel = "y", ylabel = "z", title = "Masked Region", color = :jet)
-contour!(plt, yw, zw, interior(W)[1,:,:]', title="W", xlabel="y", ylabel="z", color=:black, linewidth=1.5)
+contour!(plt, yw, zw, interior(W)[1,:,:]', title="W_deravative", xlabel="y", ylabel="z", color=:black, linewidth=1.5)
 savefig(plt, "W_deravative.png")
 
 velocities = PrescribedVelocityFields(v=V, w=W)
