@@ -89,8 +89,8 @@ W    = 4*h0.*Z.*Y.*exp.(-Y.^2/L^2).*(1 .- Z./(-2 .+ h0*exp.(-Y.^2/L^2)))./((L^2)
 
 xt, yt, zt = nodes((Center, Center, Center), grid)
 
-#plt_v =arrows!(yt, zt, interior(V)[1,:,:]', interior(W)[1,:,:]', arrowsize = 10, lengthscale = 0.3)
+plt_vel =arrows!(yt, zt, interior(V)[1,:,:]', interior(W)[1,:,:]', arrowsize = 10, lengthscale = 0.3)
 #plt_v =arrows!(yt, zt, interior(V)[1,:,:]', interior(W)[1,:,:]')
 #plt_v =arrows!(yt, zt,V ,W )
-plt_vel =arrows!(yt, zt,V' ,W' )
+#plt_vel =arrows!(yt, zt,V' ,W' )
 savefig(plt_vel, "vector_exact.png")
