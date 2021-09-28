@@ -53,6 +53,8 @@ grid_with_seamount = ImmersedBoundaryGrid(grid, GridFittedBoundary(seamount))
 V = Field(Center, Center, Center, CPU(), grid_with_seamount)
 W = Field(Center, Center, Center, CPU(), grid_with_seamount)
 
+mask_immersed_field!(V)
+mask_immersed_field!(W)
 
 yq = LinRange(-1, 1, 32)
 zq = LinRange(-1, 0, 16)
@@ -60,9 +62,6 @@ zq = LinRange(-1, 0, 16)
 
 V = [-2*(1 - z/(-2 + h0*exp(-y^2/L^2)))/(-2 + h0*exp(-y^2/L^2)) for y in yq, z in zq]
 W = [4*h0*z*y*exp(-y^2/L^2)*(1 - z/(-2 + h0*exp(-y^2/L^2)))/((L^2)*(-2 + h0*exp(-y^2/L^2))^2) for y in yq, z in zq]
-
-mask_immersed_field!(V)
-mask_immersed_field!(W)
 
 
 scene = arrows(yq, zq, V, W, arrowsize = 7, lengthscale = 0.3)
