@@ -53,8 +53,8 @@ grid_with_seamount = ImmersedBoundaryGrid(grid, GridFittedBoundary(seamount))
 V = Field(Center, Center, Center, CPU(), grid_with_seamount)
 W = Field(Center, Center, Center, CPU(), grid_with_seamount)
 
-mask_immersed_field!(V)
-mask_immersed_field!(W)
+#mask_immersed_field!(V)
+#mask_immersed_field!(W)
 
 yq = LinRange(-1, 1, 32)
 zq = LinRange(-1, 0, 16)
