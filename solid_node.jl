@@ -20,6 +20,12 @@ mask_immersed_field!(Ψ)
 #rotl90=>transpose the psi
 rotl90(interior(Ψ)[1,:,:])
 
+V = YFaceField(CPU(), grid_with_seamount)
+W = ZFaceField(CPU(), grid_with_seamount)
+
+V.=  ∂z(Ψ)
+W.= -∂y(Ψ)
+
 #when solid_node is true it means that it is inside the seamount
 solid_node(Center(), Face(), Face(), 1,6,2, grid_with_seamount)
 #when solid_node is true it means that it is outside the seamount
