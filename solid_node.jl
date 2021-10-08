@@ -16,8 +16,8 @@ h(y)    = h0*exp(-y^2/L^2)
 ζ(y, z) = z/(h(y) - 1)
 set!(Ψ, (x, y, z) -> (1 - ζ(y, z))^2)
 
-#mask_immersed_field!(Ψ)
-mask_immersed_field!(Ψ, NaN)
+mask_immersed_field!(Ψ)
+mask_immersed_field!(interior(Ψ), NaN)
 #rotl90=>transpose the psi
 rotl90(interior(Ψ)[1,:,:])
 
