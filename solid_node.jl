@@ -26,7 +26,8 @@ rotl90(interior(Ψ)[1,:,:])
 
 V = YFaceField(CPU(), grid_with_seamount)
 W = ZFaceField(CPU(), grid_with_seamount)
-
+fill_halo_regions!(V, CPU())
+fill_halo_regions!(W, CPU())
 V.=  ∂z(Ψ)
 W.= -∂y(Ψ)
 
@@ -37,7 +38,7 @@ D = Field(Center, Center, Center, CPU(), grid_with_seamount)
 D .= ∂y(V) + ∂z(W)
 
 D1 = Field(Center, Center, Center, CPU(), grid_with_seamount)
-D1 .= ∂y(V) + ∂z(W)
+D1 .= ∂y(V) 
 
 D2 = Field(Center, Center, Center, CPU(), grid_with_seamount)
 D2 .=  ∂z(W)
