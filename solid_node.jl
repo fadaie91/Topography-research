@@ -33,6 +33,7 @@ interior(W)[1,:,:]
 D = Field(Center, Center, Center, CPU(), grid_with_seamount)
 D .= ∂y(V) + ∂z(W)
 
+interior(D)[1,:,:]
 #when solid_node is true it means that it is inside the seamount
 solid_node(Center(), Face(), Face(), 1,6,2, grid_with_seamount)
 #when solid_node is true it means that it is outside the seamount
