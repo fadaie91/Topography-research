@@ -3,7 +3,7 @@ using Oceananigans.ImmersedBoundaries: ImmersedBoundaryGrid, GridFittedBoundary
 using Oceananigans.ImmersedBoundaries: mask_immersed_field!
 using Oceananigans.ImmersedBoundaries: solid_node
 
-grid = RegularRectilinearGrid(size=(16, 8), y=(-1, 1), z=(-1, 0),                           
+grid = RegularRectilinearGrid(size=(8, 4), y=(-1, 1), z=(-1, 0),                           
                               topology=(Flat, Periodic, Bounded))
 
 h0, L              = 0.5, 0.25
