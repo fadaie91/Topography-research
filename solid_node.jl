@@ -16,7 +16,8 @@ h(y)    = h0*exp(-y^2/L^2)
 ζ(y, z) = z/(h(y) - 1)
 set!(Ψ, (x, y, z) -> (1 - ζ(y, z))^2)
 
-mask_immersed_field!(Ψ)
+#mask_immersed_field!(Ψ)
+mask_immersed_field!(Ψ, NaN)
 #rotl90=>transpose the psi
 rotl90(interior(Ψ)[1,:,:])
 
@@ -25,6 +26,9 @@ W = ZFaceField(CPU(), grid_with_seamount)
 
 V.=  ∂z(Ψ)
 W.= -∂y(Ψ)
+
+interior(V)[1,:,:]
+interior(W)[1,:,:]
 
 #when solid_node is true it means that it is inside the seamount
 solid_node(Center(), Face(), Face(), 1,6,2, grid_with_seamount)
