@@ -2,6 +2,7 @@ using Oceananigans
 using Oceananigans.ImmersedBoundaries: ImmersedBoundaryGrid, GridFittedBoundary
 using Oceananigans.ImmersedBoundaries: mask_immersed_field!
 using Oceananigans.ImmersedBoundaries: solid_node
+using Oceananigans.BoundaryConditions: fill_halo_regions!
 
 grid = RegularRectilinearGrid(size=(8, 4), y=(-1, 1), z=(-1, 0),                           
                               topology=(Flat, Periodic, Bounded))
@@ -15,11 +16,13 @@ grid_with_seamount = ImmersedBoundaryGrid(grid, GridFittedBoundary(seamount))
 h(y)    = h0*exp(-y^2/L^2)
 ζ(y, z) = z/(h(y) - 1)
 set!(Ψ, (x, y, z) -> (1 - ζ(y, z))^2)
-
+fill_halo_regions!(Ψ, CPU())
+  
 mask_immersed_field!(Ψ)
 #mask_immersed_field!(interior(Ψ), NaN)
 #rotl90=>transpose the psi
 rotl90(interior(Ψ)[1,:,:])
+
 
 V = YFaceField(CPU(), grid_with_seamount)
 W = ZFaceField(CPU(), grid_with_seamount)
