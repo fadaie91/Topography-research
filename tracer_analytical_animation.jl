@@ -165,9 +165,9 @@ function visualize_flow_over_seamount_simulation(prefix)
 
         v_title = @sprintf("v, t = %.2f", t)
 
-        b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation", color = :balance, linewidth = 0, clim = (-bmax, bmax))
+        #b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation", color = :balance, linewidth = 0, clim = (-bmax, bmax))
 	#b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation")
-		#b_plot = contourf(yb, zb, b'; title = "buoyancy perturbation")
+		b_plot = contourf(yb, zb, b'; title = "buoyancy perturbation")
 	# plot(b_plot, layout = (1, 1), size = (1200, 1200))
     end
 
