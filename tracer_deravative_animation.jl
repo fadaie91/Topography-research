@@ -82,7 +82,7 @@ progress(s) = @info @sprintf("[%.2f%%], iteration: %d, time: %.3f, max|b|: %.2e"
 xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]', title="tracer", xlabel="y", ylabel="z")
 savefig(bplot, "tracer_initial.png")
-c_initial_tot = sum(interior(model.tracers.b)
+c_initial_tot = sum(interior(model.tracers.b)*1/64
 simulation = Simulation(model, Δt = Δt, stop_time = 0.3, progress = progress, iteration_interval = 10)
 
 serialize_grid(file, model) = file["serialized/grid"] = model.grid.grid
@@ -99,7 +99,7 @@ finish_time = time_ns()
 xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]'; title="tracer", xlabel="y", ylabel="z", label=@sprintf("t = %.3f", model.clock.time))
 savefig(bplot, "tracer_final.png")
-c_final_tot = sum(interior(model.tracers.b)
+c_final_tot = sum(interior(model.tracers.b)*1/64
 
 @info """
     Simulation complete.
