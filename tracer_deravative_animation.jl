@@ -55,8 +55,6 @@ mask_immersed_field!(V)
 mask_immersed_field!(W)
 
 
-
-
 velocities = PrescribedVelocityFields( v=V, w=W)
 
 model = HydrostaticFreeSurfaceModel(architecture = CPU(),                          
@@ -72,9 +70,7 @@ model = HydrostaticFreeSurfaceModel(architecture = CPU(),
 B = Field(Center, Center, Center, CPU(), grid_with_seamount)     
 set!(B, (x, y, z) -> (1.0 + z) ) 
 mask_immersed_field!(B)
-xb, yb, zb = nodes((Center, Center, Center), grid)
-bplot = contourf(yb, zb, interior(B)[1,:,:]', title="tracer", xlabel="y", ylabel="z")
-savefig(bplot, "tracer.png")
+
 
 Δt = 0.001
 set!(model, b = B)                       
@@ -86,7 +82,7 @@ progress(s) = @info @sprintf("[%.2f%%], iteration: %d, time: %.3f, max|b|: %.2e"
 xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]', title="tracer", xlabel="y", ylabel="z")
 savefig(bplot, "tracer_initial.png")
-
+c_initial_tot = sum(interior(model.tracers.b)
 simulation = Simulation(model, Δt = Δt, stop_time = 0.3, progress = progress, iteration_interval = 10)
 
 serialize_grid(file, model) = file["serialized/grid"] = model.grid.grid
@@ -103,7 +99,7 @@ finish_time = time_ns()
 xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]'; title="tracer", xlabel="y", ylabel="z", label=@sprintf("t = %.3f", model.clock.time))
 savefig(bplot, "tracer_final.png")
-
+c_final_tot = sum(interior(model.tracers.b)
 
 @info """
     Simulation complete.
@@ -179,3 +175,5 @@ end
 
 visualize_flow_over_seamount_simulation("flow_over_seamount")
 print("Simulation time = ", prettytime((finish_time - start_time)/1e9), "\n")
+c_initial_tot
+c_final_tot
