@@ -75,6 +75,13 @@ mask_immersed_field!(B)
 xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(B)[1,:,:]', title="tracer", xlabel="y", ylabel="z")
 savefig(bplot, "tracer.png")
+c_initial_tot=0
+for j in 1:16
+  for k in 1:8
+    c_initial_tot=(B)[1, j, k]*1/8+c_initial_tot
+  end
+end
+
 
 Δt = 0.001
 set!(model, b = B)                       
@@ -97,10 +104,13 @@ xb, yb, zb = nodes((Center, Center, Center), grid)
 bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]'; title="tracer", xlabel="y", ylabel="z", label=@sprintf("t = %.3f", model.clock.time))
 savefig(bplot, "tracer_final.png")
 
-ctot=0
+c_final_tot=0
 for j in 1:16
   for k in 1:8
-    ctot=(model.tracers.b)[1, j, k]*1/8+ctot
+    c_final_tot=(model.tracers.b)[1, j, k]*1/8+c_final_tot
   end
 end
-ctot
+
+
+c_initial_tot
+c_final_tot
