@@ -88,6 +88,13 @@ bplot = contourf(yb, zb, interior(model.tracers.b)[1, :, :]', title="tracer", xl
 savefig(bplot, "tracer_initial.png")
 
 simulation = Simulation(model, Δt = Δt, stop_time = 0.3, progress = progress, iteration_interval = 10)
+
+serialize_grid(file, model) = file["serialized/grid"] = model.grid.grid
+simulation.output_writers[:fields] = JLD2OutputWriter(model, model.tracers,
+                                                      schedule = TimeInterval(0.02),
+                                                      prefix = "flow_over_seamount",
+                                                      init = serialize_grid,
+                                                      force = true)
                         
 start_time = time_ns()
 run!(simulation)
@@ -159,9 +166,9 @@ function visualize_flow_over_seamount_simulation(prefix)
 
         v_title = @sprintf("v, t = %.2f", t)
 
-        b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation", color = :balance, linewidth = 0, clim = (-bmax, bmax))
+        #b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation", color = :balance, linewidth = 0, clim = (-bmax, bmax))
 	#b_plot = contourf(yb, zb, b′'; title = "buoyancy perturbation")
-		#b_plot = contourf(yb, zb, b'; title = "buoyancy perturbation")
+		b_plot = contourf(yb, zb, b'; title = "buoyancy perturbation")
 	# plot(b_plot, layout = (1, 1), size = (1200, 1200))
     end
 
