@@ -82,7 +82,7 @@ for j in 1:16
     c_initial_tot=(B)[1, j, k]*1/8+c_initial_tot
   end
 end
-
+sum(interior(B))*1/64
 
 Δt = 0.001
 set!(model, b = B)                       
