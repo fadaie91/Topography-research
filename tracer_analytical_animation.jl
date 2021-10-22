@@ -89,6 +89,7 @@ savefig(bplot, "tracer_initial.png")
 
 simulation = Simulation(model, Δt = Δt, stop_time = 0.3, progress = progress, iteration_interval = 10)
 
+serialize_grid(file, model) = file["serialized/grid"] = model.grid.grid
 simulation.output_writers[:fields] = JLD2OutputWriter(model, model.tracers,
                                                       schedule = TimeInterval(0.02),
                                                       prefix = "flow_over_seamount",
