@@ -20,7 +20,7 @@ function show_mask(grid)
     return x, y, z, c
 end
 
-grid = RegularRectilinearGrid(size=(16, 8),
+grid = RegularRectilinearGrid(size=(128, 64),
                               y=(-1, 1),                        
                               z=(-1, 0),                           
                               topology=(Flat, Periodic, Bounded))
@@ -95,3 +95,8 @@ xv, yv, zv = nodes((Center, Face, Center), grid)
         #plt_v_final=plot(v_analyc_plot, w_analyc_plot, v_deravtive_plot ,w_deravtive_plot, layout = (2, 2), size = (1200, 1200))
         plt_v_final=plot(v_analyc_plot, v_deravtive_plot, layout = (2, 1), size = (1200, 1200))
 savefig(plt_v_final, "v_final.png")
+maximum(interior(V_analyc)[1,:,:])
+argmax(interior(V_analyc)[1,:,:])
+maximum(interior(V_deravative)[1,:,:])
+argmax(interior(V_deravative)[1,:,:])
+interior(V_analyc)[1,:,:]/interior(V_deravative)[1,:,:]
