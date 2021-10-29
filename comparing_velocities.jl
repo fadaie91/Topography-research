@@ -99,4 +99,4 @@ maximum(interior(V_analyc)[1,:,:])
 argmax(interior(V_analyc)[1,:,:])
 maximum(interior(V_deravative)[1,:,:])
 argmax(interior(V_deravative)[1,:,:])
-interior(V_analyc)[1,:,:]/interior(V_deravative)[1,:,:]
+interior(V_analyc)[1,:,:]./interior(V_deravative)[1,:,:]
