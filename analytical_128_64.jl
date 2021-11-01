@@ -54,8 +54,8 @@ W = ZFaceField(CPU(), grid_with_seamount)
 ### which in this code we use exact expression 
 ### which we computed in maple
 ### we are calling this method 'analytical'
-set!(V, (x, y, z) -> -2*(1 - z/(-2 + h0*exp(-y^2/L^2)))/(-2 + h0*exp(-y^2/L^2)))
-set!(W, (x, y, z) -> 4*h0*z*y*exp(-y^2/L^2)*(1 - z/(-2 + h0*exp(-y^2/L^2)))/((L^2)*(-2 + h0*exp(-y^2/L^2))^2))
+set!(V_analyc, (x, y, z) -> -2 * (1 - ( z / (-1+h0*exp(-y^2/L^2)) ) )/(-1+h0*exp(-y^2/L^2)))
+set!(W_analyc, (x, y, z) -> 4*h0*z*y*exp(-y^2/L^2)*(1 - z/(-1 + h0*exp(-y^2/L^2)))/((L^2)*(-1 + h0*exp(-y^2/L^2))^2))
 
 ### We fill the halo regions of V and W
 fill_halo_regions!(V, CPU())
