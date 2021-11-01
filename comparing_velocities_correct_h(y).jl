@@ -46,23 +46,23 @@ fill_halo_regions!(Ψ, CPU())
 mask_immersed_field!(Ψ)
 
 ### V is (Center, Face, Center)
-V_deravative = YFaceField(CPU(), grid_with_seamount)
+V_difference = YFaceField(CPU(), grid_with_seamount)
 ### W is (Center, Centere, Face)
-W_deravative = ZFaceField(CPU(), grid_with_seamount)
+W_difference = ZFaceField(CPU(), grid_with_seamount)
 
 ### V and W are deravatives of psi 
 ### which in this code we use deravative functions
 ### (which are defined in julia) to find the values
-V_deravative.=  ∂z(Ψ)
-W_deravative.= -∂y(Ψ)
+V_difference.=  ∂z(Ψ)
+W_difference.= -∂y(Ψ)
 
 ### We fill the halo regions of V and W
-fill_halo_regions!(V_deravative, CPU())
-fill_halo_regions!(W_deravative, CPU())
+fill_halo_regions!(V_difference, CPU())
+fill_halo_regions!(W_difference, CPU())
 
 ### We mask V and W        
-mask_immersed_field!(V_deravative)
-mask_immersed_field!(W_deravative)
+mask_immersed_field!(V_difference)
+mask_immersed_field!(W_difference)
 
 ### V is (Center, Face, Center)
 V_analyc = YFaceField(CPU(), grid_with_seamount)
@@ -89,14 +89,14 @@ xv, yv, zv = nodes((Center, Face, Center), grid)
 
         v_analyc_plot = contourf(yv, zv, interior(V_analyc)[1,:,:]'; title = "V_analytical")
         w_analyc_plot = contourf(yv, zv, interior(W_analyc)[1,:,:]'; title = "W_analytical")
-        v_deravtive_plot = contourf(yv, zv, interior(V_deravative)[1,:,:]'; title = "V_deravtive")
-        w_deravtive_plot = contourf(yv, zv, interior(W_deravative)[1,:,:]'; title = "W_deravtive")
+        v_deravtive_plot = contourf(yv, zv, interior(V_difference)[1,:,:]'; title = "V_deravtive")
+        w_deravtive_plot = contourf(yv, zv, interior(W_difference)[1,:,:]'; title = "W_deravtive")
 
         #plt_v_final=plot(v_analyc_plot, w_analyc_plot, v_deravtive_plot ,w_deravtive_plot, layout = (2, 2), size = (1200, 1200))
         plt_v_final=plot(v_analyc_plot, v_deravtive_plot, layout = (2, 1), size = (1200, 1200))
 savefig(plt_v_final, "v_final_modified.png")
 maximum(interior(V_analyc)[1,:,:])
 argmax(interior(V_analyc)[1,:,:])
-maximum(interior(V_deravative)[1,:,:])
-argmax(interior(V_deravative)[1,:,:])
-interior(V_analyc)[1,:,:]./interior(V_deravative)[1,:,:]
+maximum(interior(V_difference)[1,:,:])
+argmax(interior(V_difference)[1,:,:])
+interior(V_analyc)[1,:,:]./interior(V_difference)[1,:,:]
