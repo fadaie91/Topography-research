@@ -192,18 +192,18 @@ function visualize_flow_over_seamount_simulation(prefix)
 	
     end
 
-    mp4(anim, "flow_over_seamount.mp4", fps = 16)
+    mp4(anim, "flow_over_seamount_difference_method.mp4", fps = 16)
 
     close(file)
 end
 
-visualize_flow_over_seamount_simulation("flow_over_seamount")
+visualize_flow_over_seamount_simulation("flow_over_seamount_difference_method")
 print("Simulation time = ", prettytime((finish_time - start_time)/1e9), "\n")
 
 ### here we compute the error for total tracer conservation
 tracer_initial_tot
 tracer_final_tot
-deravative_error=(abs(tracer_initial_tot-tracer_final_tot)/tracer_initial_tot)*100
+difference_error=(abs(tracer_initial_tot-tracer_final_tot)/tracer_initial_tot)*100
 
 ### here we compute the divergence of velocity
 D = Field(Center, Center, Center, CPU(), grid_with_seamount)
