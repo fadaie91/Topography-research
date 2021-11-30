@@ -22,7 +22,7 @@ function show_mask(grid)
     return x, y, z, c
 end
 
-grid = RegularRectilinearGrid(size=(16, 8),
+grid = RegularRectilinearGrid(size=(128, 64),
                               y=(-1, 1),                        
                               z=(-1, 0),                           
                               topology=(Flat, Periodic, Bounded))
