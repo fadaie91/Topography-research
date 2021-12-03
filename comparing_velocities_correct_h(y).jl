@@ -1,3 +1,5 @@
+
+   
 ENV["GKSwstype"] = "nul"
 using Printf
 using Oceananigans
@@ -86,17 +88,19 @@ mask_immersed_field!(W_analyc)
 
 
 xv, yv, zv = nodes((Center, Face, Center), grid)
-
+xw, yw, zw = nodes((Center, Center, Face), grid)
         v_analyc_plot = contourf(yv, zv, interior(V_analyc)[1,:,:]'; title = "V_analytical")
-        w_analyc_plot = contourf(yv, zv, interior(W_analyc)[1,:,:]'; title = "W_analytical")
+        w_analyc_plot = contourf(yw, zw, interior(W_analyc)[1,:,:]'; title = "W_analytical")
         v_deravtive_plot = contourf(yv, zv, interior(V_difference)[1,:,:]'; title = "V_difference")
-        w_deravtive_plot = contourf(yv, zv, interior(W_difference)[1,:,:]'; title = "W_difference")
+        w_deravtive_plot = contourf(yw, zw, interior(W_difference)[1,:,:]'; title = "W_difference")
 
-        #plt_v_final=plot(v_analyc_plot, w_analyc_plot, v_deravtive_plot ,w_deravtive_plot, layout = (2, 2), size = (1200, 1200))
-        plt_v_final=plot(v_analyc_plot, v_deravtive_plot, layout = (2, 1), size = (1200, 1200))
+        plt_v_final=plot(v_analyc_plot, w_analyc_plot, v_deravtive_plot ,w_deravtive_plot, layout = (2, 2), size = (1200, 1200))
+        #plt_v_final=plot(v_analyc_plot, v_deravtive_plot, layout = (2, 1), size = (1200, 1200))
 savefig(plt_v_final, "comparing_velocities.png")
 maximum(interior(V_analyc)[1,:,:])
 argmax(interior(V_analyc)[1,:,:])
 maximum(interior(V_difference)[1,:,:])
 argmax(interior(V_difference)[1,:,:])
 interior(V_analyc)[1,:,:]./interior(V_difference)[1,:,:]
+v_diff=interior(V_analyc)[1,:,:]'-interior(V_difference)[1,:,:]'
+w_diff=interior(W_analyc)[1,:,:]'-interior(W_difference)[1,:,:]'
