@@ -104,3 +104,5 @@ argmax(interior(V_difference)[1,:,:])
 interior(V_analyc)[1,:,:]./interior(V_difference)[1,:,:]
 v_diff=interior(V_analyc)[1,:,:]'-interior(V_difference)[1,:,:]'
 w_diff=interior(W_analyc)[1,:,:]'-interior(W_difference)[1,:,:]'
+maximum(v_diff)
+maximum(w_diff)
