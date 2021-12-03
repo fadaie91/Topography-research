@@ -1,5 +1,3 @@
-
-   
 ENV["GKSwstype"] = "nul"
 using Printf
 using Oceananigans
