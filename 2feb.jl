@@ -1,7 +1,7 @@
 ENV["GKSwstype"] = "nul"
 using Printf
 using Oceananigans
-using Oceananigans.ImmersedBoundaries: ImmersedBoundaryGrid, GridFittedBoundary
+using Oceananigans.ImmersedBoundaries: ImmersedBoundaryGrid, GridFittedBottom #, PartialCellBottom
 using Oceananigans.BoundaryConditions: fill_halo_regions!
 using Plots
 using JLD2
@@ -36,8 +36,10 @@ grid = RegularRectilinearGrid(size=(16, 8),
 
 # Gaussian seamount
 h0, L = 0.5, 0.25                                        
-seamount(x, y, z) = z < - 1 + h0*exp(-y^2/L^2)  
-grid_with_seamount = ImmersedBoundaryGrid(grid, GridFittedBoundary(seamount))
+seamount(x, y) = - 1 + h0*exp(-y^2/L^2)  
+grid_with_seamount = ImmersedBoundaryGrid(grid, GridFittedBottom(seamount))
+#grid_with_seamount = ImmersedBoundaryGrid(grid, PartialCellBottom(seamount))
+
 
 #x, y, z, cc = show_mask(grid_with_seamount)
 #plt = contourf(y, z, interior(cc)[1,:,:]', xlabel = "y", ylabel = "z", title = "Masked Region")
